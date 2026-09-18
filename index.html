@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Flat - HDB Flat Portal</title>
+    <!-- Google Fonts for Government Design System Typography (Inter/Roboto baseline) -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            /* GovTech / HDB Design System Color Palette */
+            --gov-blue: #0A3D62;
+            --gov-blue-hover: #072a44;
+            --gov-primary: #1B5E20; /* Accent or structural */
+            --hdb-accent: #1976D2;
+            --neutral-dark: #212529;
+            --neutral-medium: #495057;
+            --neutral-light: #F8F9FA;
+            --border-color: #CED4DA;
+            --border-light: #E9ECEF;
+            --white: #FFFFFF;
+            --focus-yellow: #FFD54F;
+            --verified-bg: #E8F5E9;
+            --verified-text: #2E7D32;
+            --font-stack: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background-color: #F4F6F9;
+            color: var(--neutral-dark);
+            font-size: 14px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- GOV TOP BANNER BAR --- */
+        .gov-banner {
+            background-color: #F0F2F5;
+            border-bottom: 1px solid #DCE1E5;
+            padding: 6px 0;
+            font-size: 12px;
+            color: var(--neutral-medium);
+        }
+
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .gov-banner-content {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .gov-banner-content img {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* --- MAIN HEADER --- */
+        .portal-header {
+            background-color: var(--white);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .brand-area {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+        }
+
+        .brand-crest {
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--gov-blue);
+            letter-spacing: 0.5px;
+            border-left: 3px solid var(--gov-blue);
+            padding-left: 10px;
+            line-height: 1.2;
+        }
+
+        .brand-crest span {
+            display: block;
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--neutral-medium);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            align-items: center;
+            height: 100%;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--neutral-medium);
+            font-weight: 500;
+            font-size: 14px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            border-bottom: 3px solid transparent;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gov-blue);
+        }
+
+        .nav-links a.active {
+            color: var(--gov-blue);
+            border-bottom-color: var(--gov-blue);
+            font-weight: 700;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-singpass {
+            background-color: #D32F2F;
+            color: var(--white);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .btn-singpass:hover {
+            background-color: #B71C1C;
+        }
+
+        /* --- PAGE HEADER SECTION --- */
+        .page-header-section {
+            background-color: var(--white);
+            padding: 24px 0 16px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .breadcrumb {
+            font-size: 12px;
+            color: var(--neutral-medium);
+            margin-bottom: 8px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .breadcrumb a {
+            color: var(--hdb-accent);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .page-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .page-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--gov-blue);
+            line-height: 1.2;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--neutral-medium);
+            margin-top: 4px;
+        }
+
+        /* --- SEARCH & FILTER BAR (POLYMER-STYLE) --- */
+        .filter-section {
+            background-color: var(--white);
+            padding: 16px 24px;
+            margin: 20px 0;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: 2.2fr 1.2fr 1.5fr 1.5fr auto auto;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .form-field label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--neutral-medium);
+        }
+
+        .form-control {
+            height: 38px;
+            padding: 0 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--white);
+            font-size: 14px;
+            color: var(--neutral-dark);
+            width: 100%;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        .form-control:focus {
+            border-color: var(--gov-blue);
+            box-shadow: 0 0 0 2px rgba(10, 61, 98, 0.15);
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23495057'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 18px;
+            padding-right: 32px;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+            height: 100%;
+            padding-top: 18px;
+        }
+
+        .btn {
+            height: 38px;
+            padding: 0 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            border: 1px solid transparent;
+            text-decoration: none;
+            transition: background-color 0.15s, border-color 0.15s;
+        }
+
+        .btn-primary {
+            background-color: var(--gov-blue);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--gov-blue-hover);
+        }
+
+        .btn-secondary {
+            background-color: var(--white);
+            border-color: var(--border-color);
+            color: var(--neutral-medium);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--neutral-light);
+            border-color: var(--neutral-medium);
+        }
+
+        .filter-row-secondary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-light);
+            font-size: 13px;
+        }
+
+        .active-chips {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            background-color: var(--neutral-light);
+            border: 1px solid var(--border-color);
+            padding: 2px 8px 2px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--neutral-dark);
+        }
+
+        .chip .material-icons {
+            font-size: 14px;
+            cursor: pointer;
+            color: var(--neutral-medium);
+        }
+
+        .chip .material-icons:hover {
+            color: var(--neutral-dark);
+        }
+
+        .text-btn {
+            background: none;
+            border: none;
+            color: var(--hdb-accent);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 0;
+        }
+
+        .text-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* --- RESULTS SUMMARY BAR --- */
+        .results-summary-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .results-count {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--neutral-dark);
+        }
+
+        .results-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .sort-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--neutral-medium);
+        }
+
+        .sort-wrapper select {
+            height: 32px;
+            padding: 0 28px 0 8px;
+            font-size: 13px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background-color: var(--white);
+        }
+
+        /* --- RESULTS LIST / GRID --- */
+        .listings-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .listing-card {
+            background-color: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            display: grid;
+            grid-template-columns: 240px 1fr auto;
+            position: relative;
+            transition: box-shadow 0.15s, border-color 0.15s;
+        }
+
+        .listing-card:hover {
+            border-color: var(--gov-blue);
+            box-shadow: 0 2px 6px rgba(10, 61, 98, 0.08);
+        }
+
+        .listing-img-wrapper {
+            position: relative;
+            background-color: #E9ECEF;
+            height: 100%;
+            min-height: 180px;
+        }
+
+        .listing-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .verified-badge-floating {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background-color: rgba(46, 125, 50, 0.9);
+            color: var(--white);
+            font-size: 11px;
+            font-weight: 500;
+            padding: 2px 6px;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .verified-badge-floating .material-icons {
+            font-size: 12px;
+        }
+
+        .favourite-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--neutral-medium);
+            transition: background 0.1s;
+        }
+
+        .favourite-btn:hover {
+            background: var(--white);
+            color: #D32F2F;
+        }
+
+        .listing-content {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .listing-header-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .flat-type-tag {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--gov-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .flat-location {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--neutral-dark);
+        }
+
+        .flat-address-sub {
+            font-size: 13px;
+            color: var(--neutral-medium);
+            margin-top: 1px;
+        }
+
+        .flat-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--neutral-dark);
+            text-align: right;
+        }
+
+        .flat-psf {
+            font-size: 11px;
+            color: var(--neutral-medium);
+            text-align: right;
+        }
+
+        .flat-specs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, auto);
+            gap: 24px;
+            margin: 12px 0;
+            padding: 10px 0;
+            border-top: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+            width: fit-content;
+        }
+
+        .spec-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .spec-label {
+            font-size: 11px;
+            color: var(--neutral-medium);
+        }
+
+        .spec-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--neutral-dark);
+        }
+
+        .listing-amenities {
+            font-size: 12px;
+            color: var(--neutral-medium);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .listing-amenities .material-icons {
+            font-size: 14px;
+            color: var(--hdb-accent);
+        }
+
+        .listing-actions-col {
+            padding: 16px;
+            border-left: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-end;
+            min-width: 160px;
+        }
+
+        .verified-info-box {
+            font-size: 11px;
+            color: var(--verified-text);
+            background-color: var(--verified-bg);
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 500;
+        }
+
+        .verified-info-box .material-icons {
+            font-size: 13px;
+        }
+
+        /* --- PAGINATION --- */
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--white);
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 40px;
+        }
+
+        .pagination-info {
+            font-size: 13px;
+            color: var(--neutral-medium);
+        }
+
+        .pagination-controls {
+            display: flex;
+            gap: 4px;
+        }
+
+        .page-btn {
+            height: 32px;
+            min-width: 32px;
+            padding: 0 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--white);
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            color: var(--neutral-medium);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-btn.active {
+            background-color: var(--gov-blue);
+            color: var(--white);
+            border-color: var(--gov-blue);
+        }
+
+        .page-btn:hover:not(.active):not(:disabled) {
+            background-color: var(--neutral-light);
+            color: var(--neutral-dark);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* --- FOOTER LINK ELEMENT --- */
+        .footer-learn-more {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 13px;
+        }
+
+        .footer-learn-more a {
+            color: var(--hdb-accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-learn-more a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- FOOTER BASE --- */
+        .site-footer {
+            background-color: #1A252C;
+            color: #ADB5BD;
+            padding: 32px 0;
+            font-size: 12px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2C3E50;
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #ADB5BD;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            text-decoration: underline;
+        }
+
+        .copyright {
+            color: #6C757D;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Gov Banner -->
+    <div class="gov-banner">
+        <div class="container">
+            <div class="gov-banner-content">
+                <img src="data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23495057'%3e%3cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'/%3e%3c/svg%3e" alt="Info icon">
+                <span>A Singapore Government Agency Website</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portal Navigation Header -->
+    <header class="portal-header">
+        <div class="container navbar">
+            <a href="#" class="brand-area">
+                <div class="brand-crest">
+                    HDB
+                    <span>Flat Portal</span>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#" class="active">Find a Flat</a></li>
+                <li><a href="#">Application</a></li>
+                <li><a href="#">My Flat Dashboard</a></li>
+                <li><a href="#">Resources</a></li>
+            </ul>
+            <div class="header-actions">
+                <button class="btn-singpass" type="button">
+                    <span class="material-icons" style="font-size: 16px;">lock</span>
+                    Singpass Login
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container">
+
+        <!-- 1. Page Header -->
+        <section class="page-header-section">
+            <div class="breadcrumb">
+                <a href="#">HDB Flat Portal</a>
+                <span class="material-icons" style="font-size: 12px; color: var(--neutral-medium);">chevron_right</span>
+                <span>Resale Flat Listing</span>
+                <span class="material-icons" style="font-size: 12px; color: var(--neutral-medium);">chevron_right</span>
+                <span>Find a Flat</span>
+            </div>
+            <div class="page-title-row">
+                <div>
+                    <h1 class="page-title">Find a Flat</h1>
+                    <p class="page-subtitle">Search resale flats that match your needs and budget.</p>
+                </div>
+                <div>
+                    <button class="btn btn-secondary" type="button">
+                        <span class="material-icons" style="font-size: 16px;">map</span>
+                        View on map
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Search / Filter Area (Polymer-style form components) -->
+        <div class="filter-section">
+            <div class="filter-grid">
+                <!-- Location -->
+                <div class="form-field">
+                    <label for="location-input">Location (Town / Street)</label>
+                    <input type="text" id="location-input" class="form-control" value="Tampines, Bedok" placeholder="e.g. Ang Mo Kio, Tampines">
+                </div>
+
+                <!-- Flat Type -->
+                <div class="form-field">
+                    <label for="flat-type-select">Flat Type</label>
+                    <select id="flat-type-select" class="form-control">
+                        <option value="">4-Room</option>
+                        <option value="all">All Flat Types</option>
+                        <option value="3rm">3-Room</option>
+                        <option value="5rm">5-Room</option>
+                        <option value="exec">Executive</option>
+                    </select>
+                </div>
+
+                <!-- Price Range -->
+                <div class="form-field">
+                    <label for="price-select">Price Range ($)</label>
+                    <select id="price-select" class="form-control">
+                        <option value="">$400,000 - $650,000</option>
+                        <option value="any">Any Price</option>
+                        <option value="p1">Up to $500,000</option>
+                        <option value="p2">$500,000 - $700,000</option>
+                        <option value="p3">$700,000 and above</option>
+                    </select>
+                </div>
+
+                <!-- Remaining Lease -->
+                <div class="form-field">
+                    <label for="lease-select">Remaining Lease</label>
+                    <select id="lease-select" class="form-control">
+                        <option value="">60 years & above</option>
+                        <option value="any">Any Remaining Lease</option>
+                        <option value="l1">75 years & above</option>
+                        <option value="l2">85 years & above</option>
+                    </select>
+                </div>
+
+                <!-- Secondary Action -->
+                <div class="filter-actions" style="grid-column: span 2; justify-content: flex-end;">
+                    <button class="btn btn-secondary" type="button">
+                        <span class="material-icons" style="font-size: 16px;">tune</span>
+                        More Filters
+                    </button>
+                    <button class="btn btn-primary" type="button">
+                        <span class="material-icons" style="font-size: 16px;">search</span>
+                        Search
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filter Row Secondary (Chips and Save Search) -->
+            <div class="filter-row-secondary">
+                <div class="active-chips">
+                    <span style="font-size: 12px; color: var(--neutral-medium); margin-right: 4px;">Active Filters:</span>
+                    <span class="chip">Tampines, Bedok <span class="material-icons">close</span></span>
+                    <span class="chip">4-Room <span class="material-icons">close</span></span>
+                    <span class="chip">$400k - $650k <span class="material-icons">close</span></span>
+                    <button class="text-btn" style="font-size: 12px; margin-left: 8px;">Clear all</button>
+                </div>
+                <div>
+                    <button class="text-btn" style="display: inline-flex; align-items: center; gap: 4px;">
+                        <span class="material-icons" style="font-size: 16px;">bookmark_border</span>
+                        Save search
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Results Summary -->
+        <div class="results-summary-bar">
+            <div class="results-count">
+                12,486 resale flats found
+            </div>
+            <div class="results-controls">
+                <div class="sort-wrapper">
+                    <label for="sort-select">Sort by:</label>
+                    <select id="sort-select">
+                        <option value="recommended">Recommended</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="lease">Remaining Lease</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Results List -->
+        <div class="listings-container">
+
+            <!-- Listing Item 1 -->
+            <div class="listing-card">
+                <div class="listing-img-wrapper">
+                    <!-- Realistic standard placeholder photo representation -->
+                    <img src="data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200' fill='%23e9ecef'%3e%3crect width='300' height='200' fill='%23dee2e6'/%3e%3ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236c757d' font-family='sans-serif' font-size='14px'%3eHDB Block Exterior%3c/text%3e%3c/svg%3e" alt="HDB Flat block exterior view">
+                    <div class="verified-badge-floating">
+                        <span class="material-icons">verified</span> Verified
+                    </div>
+                    <button class="favourite-btn" title="Save to favourites" type="button">
+                        <span class="material-icons" style="font-size: 18px;">favorite_border</span>
+                    </button>
+                </div>
+                <div class="listing-content">
+                    <div>
+                        <div class="flat-type-tag">4-Room Resale</div>
+                        <div class="flat-location">Blk 831, Tampines Street 82</div>
+                        <div class="flat-address-sub">Singapore 520831</div>
+                        
+                        <div class="flat-specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-label">Floor Area</span>
+                                <span class="spec-value">93 sqm</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Remaining Lease</span>
+                                <span class="spec-value">78 yrs 4 mos</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Floor Level</span>
+                                <span class="spec-value">High Floor (10-12)</span>
+                            </div>
+                        </div>
+
+                        <div class="listing-amenities">
+                            <span class="material-icons">directions_subway</span>
+                            Tampines West MRT (450m) • Tampines Hub • Wet Market
+                        </div>
+                    </div>
+                </div>
+                <div class="listing-actions-col">
+                    <div class="verified-info-box">
+                        <span class="material-icons">check_circle</span> HDB-verified information
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="flat-price">$548,000</div>
+                        <div class="flat-psf">$5,892 psf</div>
+                    </div>
+                    <button class="btn btn-primary" type="button" style="width: 100%;">View details</button>
+                </div>
+            </div>
+
+            <!-- Listing Item 2 -->
+            <div class="listing-card">
+                <div class="listing-img-wrapper">
+                    <img src="data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200' fill='%23e9ecef'%3e%3crect width='300' height='200' fill='%23dee2e6'/%3e%3ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236c757d' font-family='sans-serif' font-size='14px'%3eHDB Block Exterior%3c/text%3e%3c/svg%3e" alt="HDB Flat block exterior view">
+                    <div class="verified-badge-floating">
+                        <span class="material-icons">verified</span> Verified
+                    </div>
+                    <button class="favourite-btn" title="Save to favourites" type="button">
+                        <span class="material-icons" style="font-size: 18px;">favorite_border</span>
+                    </button>
+                </div>
+                <div class="listing-content">
+                    <div>
+                        <div class="flat-type-tag">4-Room Resale</div>
+                        <div class="flat-location">Blk 212, Bedok North Street 1</div>
+                        <div class="flat-address-sub">Singapore 460212</div>
+                        
+                        <div class="flat-specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-label">Floor Area</span>
+                                <span class="spec-value">92 sqm</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Remaining Lease</span>
+                                <span class="spec-value">64 yrs 2 mos</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Floor Level</span>
+                                <span class="spec-value">Mid Floor (04-06)</span>
+                            </div>
+                        </div>
+
+                        <div class="listing-amenities">
+                            <span class="material-icons">directions_subway</span>
+                            Bedok MRT (320m) • Bedok Mall • Hawker Centre
+                        </div>
+                    </div>
+                </div>
+                <div class="listing-actions-col">
+                    <div class="verified-info-box">
+                        <span class="material-icons">check_circle</span> HDB-verified information
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="flat-price">$495,000</div>
+                        <div class="flat-psf">$5,380 psf</div>
+                    </div>
+                    <button class="btn btn-primary" type="button" style="width: 100%;">View details</button>
+                </div>
+            </div>
+
+            <!-- Listing Item 3 -->
+            <div class="listing-card">
+                <div class="listing-img-wrapper">
+                    <img src="data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200' fill='%23e9ecef'%3e%3crect width='300' height='200' fill='%23dee2e6'/%3e%3ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%236c757d' font-family='sans-serif' font-size='14px'%3eHDB Block Exterior%3c/text%3e%3c/svg%3e" alt="HDB Flat block exterior view">
+                    <div class="verified-badge-floating">
+                        <span class="material-icons">verified</span> Verified
+                    </div>
+                    <button class="favourite-btn" title="Save to favourites" type="button">
+                        <span class="material-icons" style="font-size: 18px;">favorite_border</span>
+                    </button>
+                </div>
+                <div class="listing-content">
+                    <div>
+                        <div class="flat-type-tag">4-Room Resale</div>
+                        <div class="flat-location">Blk 488, Tampines Avenue 9</div>
+                        <div class="flat-address-sub">Singapore 520488</div>
+                        
+                        <div class="flat-specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-label">Floor Area</span>
+                                <span class="spec-value">100 sqm</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Remaining Lease</span>
+                                <span class="spec-value">85 yrs 1 mo</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Floor Level</span>
+                                <span class="spec-value">High Floor (13-15)</span>
+                            </div>
+                        </div>
+
+                        <div class="listing-amenities">
+                            <span class="material-icons">directions_subway</span>
+                            Tampines North MRT (600m) • Park Connector • Supermarket
+                        </div>
+                    </div>
+                </div>
+                <div class="listing-actions-col">
+                    <div class="verified-info-box">
+                        <span class="material-icons">check_circle</span> HDB-verified information
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="flat-price">$615,000</div>
+                        <div class="flat-psf">$6,150 psf</div>
+                    </div>
+                    <button class="btn btn-primary" type="button" style="width: 100%;">View details</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 7. Pagination Component -->
+        <div class="pagination-container">
+            <div class="pagination-info">
+                Showing <strong>1 - 3</strong> of <strong>12,486</strong> listings
+            </div>
+            <div class="pagination-controls">
+                <button class="page-btn" disabled type="button">
+                    <span class="material-icons" style="font-size: 16px;">chevron_left</span> Previous
+                </button>
+                <button class="page-btn active" type="button">1</button>
+                <button class="page-btn" type="button">2</button>
+                <button class="page-btn" type="button">3</button>
+                <button class="page-btn" type="button">4</button>
+                <button class="page-btn" type="button">5</button>
+                <span style="padding: 0 4px; display: inline-flex; align-items: center; color: var(--neutral-medium);">...</span>
+                <button class="page-btn" type="button">4,162</button>
+                <button class="page-btn" type="button">
+                    Next <span class="material-icons" style="font-size: 16px;">chevron_right</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Explanatory Resource Link -->
+        <div class="footer-learn-more">
+            <a href="#">Learn more about buying a resale flat</a>, including eligibility criteria, CPF housing grants, and financial planning tools.
+        </div>
+
+    </main>
+
+    <!-- Standard Government Portal Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="brand-crest" style="color: var(--white); border-left-color: var(--white);">
+                    Housing &amp; Development Board
+                    <span style="color: #ADB5BD;">Singapore</span>
+                </div>
+                <ul class="footer-links">
+                    <li><a href="#">Report Vulnerability</a></li>
+                    <li><a href="#">Privacy Statement</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="copyright">
+                &copy; 2026 Government of Singapore. All rights reserved. Last updated on 17 Jun 2026.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
